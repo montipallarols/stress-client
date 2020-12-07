@@ -1,4 +1,4 @@
-import axios from "../../axios/axios";
+import axios from "../../lib/axios";
 
 export const LOGIN_SUCCES = "LOGIN_SUCCES";
 export const TOKEN_STILL_VALID = "TOKEN_STILL_VALID";

@@ -11,7 +11,7 @@ export default function HomeScreen() {
           textAlign: "center",
         }}
       >
-        AntiStress
+        My Profile
       </Text>
       <Text
         style={{

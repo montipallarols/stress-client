@@ -4,14 +4,25 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { StyleSheet, Text, View } from 'react-native';
 import HomeScreen from "./src/screens/HomeScreen";
+import MyProfile from "./src/screens/MyProfile";
 
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Navigator 
+      initialRouteName='Home'
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: "#f4511e"
+        },
+        headerTintColor: "#fff",
+        headerTitleAlign: "center"
+    }}
+      >
+        <Stack.Screen name="Home" component={HomeScreen} options={{ title: "Home" }}/>
+        <Stack.Screen name="My Profile" component={MyProfile}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

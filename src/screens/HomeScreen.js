@@ -22,7 +22,7 @@ export default function HomeScreen() {
       >
         How is everyone feeling today?
       </Text>
-      <Button title="My Profile" onPress={() => navigation.navigate("My Profile")} />
+      {/* <Button title="My Profile" onPress={() => navigation.navigate("My Profile")} /> */}
     </View>
   );
 }

@@ -15,5 +15,23 @@ export default function Login() {
     setPassword("");
   }
 
-  return <View>Hello</View>;
+  return (
+    <View>
+      <Text>Login</Text>
+      <TextInput
+        value={email}
+        onChange={(event) => setEmail(event.target.value)}
+        type="email"
+        placeholder="Enter email"
+        required
+      />
+      <TextInput
+        value={password}
+        onChange={(event) => setPassword(event.target.value)}
+        placeholder="password"
+        secureTextEntry
+      />
+      <Button text={"Login"} onPress={submitForm} />
+    </View>
+  );
 }

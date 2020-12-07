@@ -13,15 +13,7 @@ export default function HomeScreen() {
       >
         My Profile
       </Text>
-      <Text
-        style={{
-          fontWeight: "bold",
-          fontSize: 30,
-          textAlign: "center",
-        }}
-      >
-        How is everyone feeling today?
-      </Text>
+    
       {/* <Button title="My Profile" onPress={() => navigation.navigate("My Profile")} /> */}
     </View>
   );

@@ -8,10 +8,11 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
 
-  function submitForm(event) {
-    event.preventDefault();
+  function submitForm(text) {
+    // event.preventDefault();
 
     dispatch(login(email, password));
+    console.log("Login with", email, password)
 
     setEmail("");
     setPassword("");
@@ -22,14 +23,14 @@ export default function Login() {
       <Text>Login</Text>
       <TextInput
         value={email}
-        onChange={(event) => setEmail(event.target.value)}
+        onChangeText={(text) => setEmail(text)}
         type="email"
         placeholder="Enter email"
         required
       />
       <TextInput
         value={password}
-        onChange={(event) => setPassword(event.target.value)}
+        onChangeText={(text) => setPassword(text)}
         placeholder="password"
         secureTextEntry
       />

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Login } from "../store/user/actions";
+import { login } from "../store/user/actions";
+import { View, Text, TextInput, Button } from "react-native";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const dispatch = useDispatch();
 
   function submitForm(event) {
     event.preventDefault();
@@ -31,7 +31,7 @@ export default function Login() {
         placeholder="password"
         secureTextEntry
       />
-      <Button text={"Login"} onPress={submitForm} />
+      <Button title="Login" text={"Login"} onPress={submitForm} />
     </View>
   );
 }

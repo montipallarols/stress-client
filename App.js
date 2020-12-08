@@ -1,3 +1,11 @@
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import { composeWithDevTools } from "redux-devtools-extension";
+import reducer from "./src/store/rootReducer";
+
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
+
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
@@ -11,6 +19,7 @@ const Stack = createStackNavigator();
 
 export default function App() {
   return (
+    <Provider store={store}>
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="Home"
@@ -39,6 +48,7 @@ export default function App() {
         />
       </Stack.Navigator>
     </NavigationContainer>
+    </Provider>
   );
 }
 

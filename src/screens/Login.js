@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { login } from "../store/user/actions";
 import { View, Text, TextInput, Button } from "react-native";
+import { useDispatch } from "react-redux";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
   function submitForm(event) {
     event.preventDefault();

@@ -16,9 +16,11 @@ import HomeScreen from "./src/screens/HomeScreen";
 import MyProfile from "./src/screens/MyProfile";
 import Login from "./src/screens/Login";
 
+
 const Stack = createStackNavigator();
 
 export default function App() {
+ 
   return (
     <Provider store={store}>
     <NavigationContainer>

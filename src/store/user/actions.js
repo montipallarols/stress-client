@@ -1,6 +1,11 @@
 import axios from "../../lib/axios";
-
-
+import { selectToken } from "./selectors";
+import {
+  appLoading,
+  appDoneLoading,
+  showMessageWithTimeout,
+  setMessage
+} from "../appState/actions";
 export const LOGIN_SUCCES = "LOGIN_SUCCES";
 export const TOKEN_STILL_VALID = "TOKEN_STILL_VALID";
 export const LOG_OUT = "LOG_OUT";
@@ -44,6 +49,7 @@ export const signUp = (firstName, lastName, email, password, phone) => {
 export const login = (email, password) => {
   
   return async (dispatch, getState) => {
+   
     try {
       const response = await axios.post(`/login`, {
         email,
@@ -51,10 +57,16 @@ export const login = (email, password) => {
       });
       console.log("Login response", response.data)
       dispatch(loginSucces(response.data));
+      
     } catch (error) {
       if (error.response) {
         console.log(error.response.data.message);
+       
+      } else {
+        console.log(error.message);
+        
       }
+      
     }
   };
 };
@@ -65,17 +77,22 @@ export const getUserWithStoredToken = () => {
 
     if (token === null) return;
 
+   
     try {
       const response = await axios.get(`/me`, {
         header: { Authorization: `Bearer ${token}` },
       });
 
       dispatch(tokenStillValid(response.data));
+     
     } catch (error) {
       if (error.response) {
         console.log(error.response.message);
+      } else {
+        console.log(error);
       }
     }
     dispatch(logOut());
+    
   };
 };

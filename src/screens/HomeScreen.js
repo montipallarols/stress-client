@@ -2,7 +2,6 @@ import React from "react";
 import { Text, View, Button } from "react-native";
 
 export default function HomeScreen({ navigation }) {
- 
   return (
     <View style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
       <Text
@@ -28,6 +27,7 @@ export default function HomeScreen({ navigation }) {
         onPress={() => navigation.navigate("My Profile")}
       />
       <Button title="Login" onPress={() => navigation.navigate("Login")} />
+      <Button title="SignUp" onPress={() => navigation.navigate("SignUp")} />
     </View>
   );
 }

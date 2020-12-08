@@ -14,7 +14,7 @@ export default function HomeScreen() {
         My Profile
       </Text>
     
-      {/* <Button title="My Profile" onPress={() => navigation.navigate("My Profile")} /> */}
+     
     </View>
   );
 }

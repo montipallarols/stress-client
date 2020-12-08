@@ -23,7 +23,7 @@ export const logOut = () => ({ type: LOG_OUT });
 export const signUp = (firstName, lastName, email, password, phone) => {
   return async (dispatch, getState) => {
     try {
-      const response = await axios.post(`auth/signup`, {
+      const response = await axios.post(`/signup`, {
         firstName,
         lastName,
         email,
@@ -43,7 +43,7 @@ export const signUp = (firstName, lastName, email, password, phone) => {
 export const login = (email, password) => {
   return async (dispatch, getState) => {
     try {
-      const response = await axios.post(`auth/login`, {
+      const response = await axios.post(`/login`, {
         email,
         password,
       });

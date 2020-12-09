@@ -39,15 +39,17 @@ export default function HomeScreen({ navigation }) {
       <Button
         title="My Profile"
         onPress={() => navigation.navigate("My Profile")}
-      /> : null }
+      /> : 
+      <Button title="SignUp" onPress={() => navigation.navigate("SignUp")} />
+      }
      
       { token ? 
       <Button title="Logout" onPress={onPressLogout} /> :
       <Button title="Login" onPress={() => navigation.navigate("Login")} /> 
-       }
+    }
+    
       
-      <Button title="Login" onPress={() => navigation.navigate("Login")} />
-      <Button title="SignUp" onPress={() => navigation.navigate("SignUp")} />
+      
     </View>
   );
 }

@@ -3,7 +3,7 @@ import { login } from "../store/user/actions";
 import { View, Text, TextInput, Button } from "react-native";
 import { useDispatch } from "react-redux";
 
-export default function Login() {
+export default function Login({navigation}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ export default function Login() {
     <View>
       <Text>Login</Text>
       <TextInput
-        value={emgail}
+        value={email}
         onChangeText={(text) => setEmail(text)}
         type="email"
         placeholder="Enter email"

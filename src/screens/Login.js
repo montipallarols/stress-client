@@ -8,11 +8,7 @@ export default function Login({navigation}) {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
 
-  //  useEffect(() => {
-  //   if (token !== null) {
-  //     navigation.navigate("Home");
-  //   }
-  // }, [token, navigation]);
+
 
   function submitForm(text) {
     // event.preventDefault();

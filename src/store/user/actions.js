@@ -3,14 +3,22 @@ import { selectToken, selectUser } from "./selectors";
 import {
   appLoading,
   appDoneLoading,
-  showMessageWithTimeout,
-  setMessage,
+  showMessage,
+  setMessage
+
 } from "../appState/actions";
 
 export const LOGIN_SUCCES = "LOGIN_SUCCES";
 export const TOKEN_STILL_VALID = "TOKEN_STILL_VALID";
 export const LOG_OUT = "LOG_OUT";
 export const USEREMOTION_POST_SUCCESS = "USEREMOTION_POST_SUCCESS";
+
+export function setLoading(loading) {
+  return {
+    type: "SET_LOADING",
+    payload: loading
+  };
+}
 
 const loginSucces = (userWithToken) => {
   return {
@@ -26,6 +34,20 @@ const tokenStillValid = (userWithoutToken) => {
   };
 };
 
+export function userReflectionsFetched(reflections) {
+  return {
+    type: "REFLECTIONS_FETCHED",
+    payload: reflections,
+  };
+}
+
+export function reflectionCreated(reflection) {
+  return {
+    type: "REFLECTION_CREATED",
+    payload: reflection
+  };
+}
+
 export const logOut = () => ({ type: LOG_OUT });
 
 export const userEmotionPostSuccess = (userEmotion) => ({
@@ -35,9 +57,9 @@ export const userEmotionPostSuccess = (userEmotion) => ({
 
 export const signUp = (firstName, lastName, email, password, phone) => {
   return async (dispatch, getState) => {
-    console.log("REACHED?");
+    // console.log("REACHED?");
     try {
-      console.log("fired");
+      // console.log("fired");
       const response = await axios.post(`/signup`, {
         firstName,
         lastName,
@@ -45,7 +67,7 @@ export const signUp = (firstName, lastName, email, password, phone) => {
         password,
         phone,
       });
-      console.log("response?");
+      // console.log("response?");
       dispatch(loginSucces(response.data));
     } catch (error) {
       console.log("...or no response?", error);
@@ -126,3 +148,47 @@ export const addUserEmotion = (level, description, needHelp, date) => {
     }
   };
 };
+
+export function getUserReflections(userId) {
+  return async (dispatch, getState) => {
+    const token = selectToken(getState());
+
+    if (token === null) return;
+    console.log("did I get here?");
+    try {
+      const response = await axios.get(`/user/${userId}`);
+      console.log("User reflection response", response.data.user.reflections);
+      dispatch(userReflectionsFetched(response.data.user.reflections));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+};
+
+export function addReflection (today, userId, problem, solution, score ) {
+  return async (dispatch, getState) => {
+    const token = selectToken(getState());
+
+    if (token === null) return
+  
+    dispatch(setLoading(true));
+    try {
+      const response = await axios.post(`user/reflections/${userId}/${today}`, {
+        problem,
+        solution,
+        score
+      },
+        {headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log("New reflection response", response.data)
+      dispatch(reflectionCreated(response.data));
+      dispatch(setLoading(false));
+      dispatch(showMessage("reflection"))
+    } catch (error) {
+      console.log(error) 
+    }
+  };
+};
+
+

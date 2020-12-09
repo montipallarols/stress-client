@@ -6,12 +6,14 @@ import {
 } from "./actions";
 
 const initialState = {
+  loading: true,
   token: localStorage.getItem("token"),
   email: null,
   id: null,
   firstName: null,
   lastName: null,
   phone: null,
+  reflections: []
 };
 
 export default (state = initialState, action) => {
@@ -35,6 +37,18 @@ export default (state = initialState, action) => {
           ...action.payload,
         },
       };
+    case "REFLECTIONS_FETCHED": {
+      return {
+          ...state,
+          reflections: [...action.payload]
+        };
+    }
+    case "REFLECTION_CREATED": {
+      return {
+        ...state,
+        reflections: [...state.reflections, action.payload]
+      };
+    }
 
     default:
       return state;

@@ -6,6 +6,9 @@ import { addUserEmotion } from "../store/user/actions";
 
 export default function Feelings() {
   const [level, setLevel] = useState("");
+
+export default function SignUp() {
+  const [level, setLevel] = useState();
   const [description, setDescription] = useState("");
   const [date, setDate] = useState(new Date());
   const [needHelp, setNeedHelp] = useState("");
@@ -18,7 +21,7 @@ export default function Feelings() {
 
     dispatch(addUserEmotion(level, description, date, needHelp));
 
-    setLevel("");
+    setLevel();
     setDescription("");
     setDate(new Date());
     setNeedHelp("");
@@ -62,4 +65,5 @@ export default function Feelings() {
       />
     </View>
   );
+}
 }

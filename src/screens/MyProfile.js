@@ -42,7 +42,7 @@ export default function HomeScreen({navigation}) {
           margin: 30
         }}
       >
-        History
+        Reflection diary
       </Text>
       <ScrollView style={styles.scrollView}>
       {userReflections.map(r => {

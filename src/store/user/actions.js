@@ -3,7 +3,7 @@ import { selectToken } from "./selectors";
 import {
   appLoading,
   appDoneLoading,
-  showMessageWithTimeout,
+  showMessage,
   setMessage
 } from "../appState/actions";
 
@@ -139,7 +139,7 @@ export function getUserReflections (userId) {
   };
 };
 
-export function addReflection (userId, date, problem, solution, score ) {
+export function addReflection (today, userId, problem, solution, score ) {
   return async (dispatch, getState) => {
     const token = selectToken(getState());
 
@@ -147,8 +147,7 @@ export function addReflection (userId, date, problem, solution, score ) {
   
     dispatch(setLoading(true));
     try {
-      const response = await axios.post(`user/reservations/${userId}`, {
-        date,
+      const response = await axios.post(`user/reflections/${userId}/${today}`, {
         problem,
         solution,
         score
@@ -158,6 +157,7 @@ export function addReflection (userId, date, problem, solution, score ) {
       console.log("New reflection response", response.data)
       dispatch(reflectionCreated(response.data));
       dispatch(setLoading(false));
+      dispatch(showMessage("reflection"))
     } catch (error) {
       console.log(error) 
     }

@@ -29,7 +29,7 @@ const tokenStillValid = (userWithoutToken) => {
 export function userReflectionsFetched(reflections) {
   return {
     type: "REFLECTIONS_FETCHED",
-    payload: reflections
+    payload: reflections,
   };
 }
 
@@ -130,19 +130,22 @@ export const addUserEmotion = (level, description, needHelp, date) => {
         dispatch(setMessage("danger", true, error.message));
       }
       dispatch(appDoneLoading());
-export function getUserReflections (userId) {
-  return async (dispatch, getState) => {
-    const token = selectToken(getState());
-
-    if (token === null) return
-    console.log("did I get here?")
-    try {
-      const response = await axios.get(`/user/${userId}`);
-      console.log("User reflection response", response.data.user.reflections)
-      dispatch(userReflectionsFetched(response.data.user.reflections));
-      
-    } catch (error) {
-      console.log(error) 
     }
   };
 };
+
+export function getUserReflections(userId) {
+  return async (dispatch, getState) => {
+    const token = selectToken(getState());
+
+    if (token === null) return;
+    console.log("did I get here?");
+    try {
+      const response = await axios.get(`/user/${userId}`);
+      console.log("User reflection response", response.data.user.reflections);
+      dispatch(userReflectionsFetched(response.data.user.reflections));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}

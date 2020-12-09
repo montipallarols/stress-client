@@ -6,7 +6,7 @@ import { addUserEmotion } from "../store/user/actions";
 import DatePicker from "react-native-datepicker";
 
 export default function SignUp() {
-  const [level, setLevel] = useState("");
+  const [level, setLevel] = useState();
   const [description, setDescription] = useState("");
   const [date, setDate] = useState(new Date());
   const [needHelp, setNeedHelp] = useState(true || false);
@@ -19,7 +19,7 @@ export default function SignUp() {
 
     dispatch(addUserEmotion(level, description, date, needHelp));
 
-    setLevel("");
+    setLevel();
     setDescription("");
     setDate(new Date());
     setNeedHelp(true || false);

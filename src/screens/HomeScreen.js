@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { emotionsFetched, fetchEmotions } from "../store/emotions/actions";
 import { selectAllEmotions } from "../store/emotions/selectors";
 import { logOut } from "../store/user/actions";
+
 import { selectToken, selectUser } from "../store/user/selectors";
+
 
 export default function HomeScreen({ navigation }) {
   useEffect(() => {
@@ -16,6 +18,10 @@ export default function HomeScreen({ navigation }) {
   const user = useSelector(selectUser);
   const token = user.token;
   const emotions = useSelector(selectAllEmotions);
+
+  useEffect(() => {
+    dispatch(getUserWithStoredToken());
+  }, [dispatch]);
 
   function onPressLogout() {
     console.log("logout");

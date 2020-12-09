@@ -1,5 +1,5 @@
 import axios from "../../lib/axios";
-import { selectToken } from "./selectors";
+import { selectToken, selectUser } from "./selectors";
 import {
   appLoading,
   appDoneLoading,
@@ -10,6 +10,7 @@ import {
 export const LOGIN_SUCCES = "LOGIN_SUCCES";
 export const TOKEN_STILL_VALID = "TOKEN_STILL_VALID";
 export const LOG_OUT = "LOG_OUT";
+export const USEREMOTION_POST_SUCCESS = "USEREMOTION_POST_SUCCESS";
 
 const loginSucces = (userWithToken) => {
   return {
@@ -33,6 +34,11 @@ export function userReflectionsFetched(reflections) {
 }
 
 export const logOut = () => ({ type: LOG_OUT });
+
+export const userEmotionPostSuccess = (userEmotion) => ({
+  type: USEREMOTION_POST_SUCCESS,
+  payload: userEmotion,
+});
 
 export const signUp = (firstName, lastName, email, password, phone) => {
   return async (dispatch, getState) => {
@@ -99,6 +105,31 @@ export const getUserWithStoredToken = () => {
   };
 };
 
+export const addUserEmotion = (level, description, needHelp, date) => {
+  return async (dispatch, getState) => {
+    const { user } = selectUser(getState());
+    console.log(user);
+    dispatch(appLoading());
+    try {
+      const response = await axios.post(`/user/${user.id}`, {
+        level,
+        description,
+        needHelp,
+        date,
+      });
+
+      dispatch(userEmotionPostSuccess(response.data));
+      dispatch(showMessageWithTimeout("success", true, "feeling created"));
+      dispatch(appDoneLoading());
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data.message);
+        dispatch(setMessage("danger", true, error.response.data.message));
+      } else {
+        console.log(error.message);
+        dispatch(setMessage("danger", true, error.message));
+      }
+      dispatch(appDoneLoading());
 export function getUserReflections (userId) {
   return async (dispatch, getState) => {
     const token = selectToken(getState());

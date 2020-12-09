@@ -16,13 +16,11 @@ import HomeScreen from "./src/screens/HomeScreen";
 import MyProfile from "./src/screens/MyProfile";
 import Login from "./src/screens/Login";
 import Signup from "./src/screens/Signup";
-
+import Feelings from "./src/screens/Feelings";
 
 const Stack = createStackNavigator();
 
 export default function App() {
-  
- 
   return (
     <Provider store={store}>
       <NavigationContainer>
@@ -55,6 +53,11 @@ export default function App() {
             name="SignUp"
             component={Signup}
             options={{ title: "SignUp" }}
+          />
+          <Stack.Screen
+            name="Feelings"
+            component={Feelings}
+            options={{ title: "Feelings" }}
           />
         </Stack.Navigator>
       </NavigationContainer>

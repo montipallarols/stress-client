@@ -191,5 +191,4 @@ export function addReflection (today, userId, problem, solution, score ) {
   };
 };
 
-}
 

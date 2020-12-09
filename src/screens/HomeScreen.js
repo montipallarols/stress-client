@@ -9,10 +9,9 @@ export default function HomeScreen({ navigation }) {
   const user = useSelector(selectUser);
   const token = user.token;
 
-
-  function onPressLogout(){
-    console.log("logout")
-    dispatch(logOut())
+  function onPressLogout() {
+    console.log("logout");
+    dispatch(logOut());
   }
   console.log("token", token);
  
@@ -36,22 +35,21 @@ export default function HomeScreen({ navigation }) {
       >
         How is everyone feeling today?
       </Text>
- 
-      { token ? 
-      <Button
-        title="My Profile"
-        onPress={() => navigation.navigate("My Profile")}
-      /> : 
-      <Button title="SignUp" onPress={() => navigation.navigate("SignUp")} />
-      }
-     
-      { token ? 
-      <Button title="Logout" onPress={onPressLogout} /> :
-      <Button title="Login" onPress={() => navigation.navigate("Login")} /> 
-    }
-    
-      
-      
+
+      {token ? (
+        <Button
+          title="My Profile"
+          onPress={() => navigation.navigate("My Profile")}
+        />
+      ) : (
+        <Button title="SignUp" onPress={() => navigation.navigate("SignUp")} />
+      )}
+
+      {token ? (
+        <Button title="Logout" onPress={onPressLogout} />
+      ) : (
+        <Button title="Login" onPress={() => navigation.navigate("Login")} />
+      )}
     </View>
   );
 }

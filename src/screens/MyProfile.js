@@ -1,8 +1,9 @@
 import React, {useEffect} from "react";
-import { Text, View, Button } from "react-native";
+import { Text, View, Button, StyleSheet, SafeAreaView, ScrollView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { selectToken, selectUser, selectUserReflections } from "../store/user/selectors";
 import { getUserReflections } from "../store/user/actions";
+import Constants from 'expo-constants';
 
 export default function HomeScreen({navigation}) {
   const dispatch = useDispatch();
@@ -19,22 +20,83 @@ export default function HomeScreen({navigation}) {
 
   useEffect(() => {
       dispatch(getUserReflections(userId))
-      console.log("Use effect")
   }, [dispatch, userId]);
 
   return (
+    <SafeAreaView style={styles.container}>
     <View style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
       <Text
         style={{
           fontWeight: "bold",
-          fontSize: 40,
+          fontSize: 35,
           textAlign: "center",
         }}
       >
-        My Profile
+        {user.firstName}
       </Text>
+      <Text
+        style={{
+          // fontWeight: "bold",
+          fontSize: 25,
+          textAlign: "center",
+          margin: 30
+        }}
+      >
+        History
+      </Text>
+      {userReflections.map(r => {
+        return <ScrollView key={r.id} style={styles.scrollView}>
+          <Text
+          style={{
+            fontWeight: "bold",
+            fontSize: 18,
+            textAlign: "center",
+            margin: 20}}
+          >{r.date.slice(0, 10)}</Text>
+          <Text style={{
+          fontWeight: "bold",
+          fontSize: 18,
+          textAlign: "center",
+          margin: 20
+        }}
+          >What I struggled with:</Text>
+          <Text style={styles.text}>{r.problem}</Text>
+          <Text style={{
+          fontWeight: "bold",
+          fontSize: 18,
+          textAlign: "center",
+          margin: 30
+        }}
+          >How I solved it:</Text>
+          <Text style={styles.text}>{r.solution}</Text>
+          <Text style={{
+          fontWeight: "bold",
+          fontSize: 18,
+          textAlign: "center",
+          margin: 30
+        }}
+          >How well I dealt with it:</Text>
+          <Text style={styles.text}>{r.score}/10</Text>
+        </ScrollView>
+      })}
     
-      <Button title="Home" onPress={() => navigation.push("Home")}/>
+     
     </View>
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: Constants.statusBarHeight,
+  },
+  scrollView: {
+    backgroundColor: '#bedbbb',
+    marginHorizontal: 5,
+  },
+  text: {
+    fontSize: 15,
+    margin: 20
+  },
+});

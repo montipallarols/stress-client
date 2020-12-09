@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useEffect} from "react";
 import { Text, View, Button } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { logOut } from "../store/user/actions";
+import { logOut, getUserWithStoredToken } from "../store/user/actions";
 import { selectToken, selectUser } from "../store/user/selectors";
+
 
 export default function HomeScreen({ navigation }) {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const token = user.token;
+
+  useEffect(() => {
+    dispatch(getUserWithStoredToken());
+  }, [dispatch]);
 
   function onPressLogout() {
     console.log("logout");

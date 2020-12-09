@@ -1,13 +1,17 @@
 import React, { useEffect } from "react";
-import { Text, View, Button, StyleSheet } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
-import { SafeAreaView } from "react-native-safe-area-context";
+import {
+  Text,
+  View,
+  Button,
+  StyleSheet,
+  ScrollView,
+  SafeAreaView,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { emotionsFetched, fetchEmotions } from "../store/emotions/actions";
 import { selectAllEmotions } from "../store/emotions/selectors";
 import { getUserWithStoredToken, logOut } from "../store/user/actions";
 import Constants from "expo-constants";
-
 
 import { selectToken, selectUser } from "../store/user/selectors";
 
@@ -142,30 +146,16 @@ export default function HomeScreen({ navigation }) {
             );
           })}
         </ScrollView>
+        <View>
+          {token ? (
+            <Button
+              title="Feelings"
+              onPress={() => navigation.navigate("Feelings")}
+            />
+          ) : null}
+        </View>
       </ScrollView>
     </SafeAreaView>
-      {token ? (
-        <Button
-          title="My Profile"
-          onPress={() => navigation.navigate("My Profile")}
-        />
-      ) : (
-        <Button title="SignUp" onPress={() => navigation.navigate("SignUp")} />
-      )}
-
-      {token ? (
-        <Button title="Logout" onPress={onPressLogout} />
-      ) : (
-        <Button title="Login" onPress={() => navigation.navigate("Login")} />
-      )}
-      {token ? (
-        <Button
-          title="Feelings"
-          onPress={() => navigation.navigate("Feelings")}
-        />
-      ) : null}
-    </View>
-
   );
 }
 

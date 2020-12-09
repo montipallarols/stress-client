@@ -45,6 +45,6 @@ export default function HomeScreen({ navigation }) {
       <Button title="Logout" onPress={onPressLogout} /> :
       <Button title="Login" onPress={() => navigation.navigate("Login")} /> 
        }
-    </View>
+      </View>
   );
 }

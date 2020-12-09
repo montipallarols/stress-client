@@ -6,7 +6,8 @@ const initialState = {
   id: null,
   firstName: null,
   lastName: null,
-  phone: null
+  phone: null,
+  reflections: []
 };
 
 export default (state = initialState, action) => {
@@ -21,6 +22,13 @@ export default (state = initialState, action) => {
 
     case TOKEN_STILL_VALID:
       return { ...state, ...action.payload };
+
+    case "REFLECTIONS_FETCHED": {
+      return {
+          ...state,
+          reflections: [...action.payload]
+        };
+    }
 
     default:
       return state;

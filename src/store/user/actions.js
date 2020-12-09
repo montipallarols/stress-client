@@ -6,6 +6,8 @@ import {
   showMessageWithTimeout,
   setMessage
 } from "../appState/actions";
+
+
 export const LOGIN_SUCCES = "LOGIN_SUCCES";
 export const TOKEN_STILL_VALID = "TOKEN_STILL_VALID";
 export const LOG_OUT = "LOG_OUT";
@@ -28,7 +30,9 @@ export const logOut = () => ({ type: LOG_OUT });
 
 export const signUp = (firstName, lastName, email, password, phone) => {
   return async (dispatch, getState) => {
+    console.log("REACHED?");
     try {
+      console.log("fired");
       const response = await axios.post(`/signup`, {
         firstName,
         lastName,
@@ -36,9 +40,10 @@ export const signUp = (firstName, lastName, email, password, phone) => {
         password,
         phone,
       });
-
+      console.log("response?");
       dispatch(loginSucces(response.data));
     } catch (error) {
+      console.log("...or no response?", error);
       if (error.response) {
         console.log(error.response.data.message);
       }
@@ -47,7 +52,6 @@ export const signUp = (firstName, lastName, email, password, phone) => {
 };
 
 export const login = (email, password) => {
-  
   return async (dispatch, getState) => {
    
     try {
@@ -55,7 +59,7 @@ export const login = (email, password) => {
         email,
         password,
       });
-      console.log("Login response", response.data)
+      console.log("Login response", response.data);
       dispatch(loginSucces(response.data));
       
     } catch (error) {

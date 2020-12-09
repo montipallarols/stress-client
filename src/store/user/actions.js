@@ -149,7 +149,9 @@ export const addUserEmotion = (level, description, needHelp, date) => {
   };
 };
 
-export function getUserReflections(userId) {
+
+
+export function getUserReflections (userId) {
   return async (dispatch, getState) => {
     const token = selectToken(getState());
 

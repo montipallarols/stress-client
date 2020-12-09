@@ -1,18 +1,17 @@
 import React, { useState } from "react";
-import { View, TextInput, Button, StyleSheet } from "react-native";
+import { View, TextInput, Button } from "react-native";
 import { Picker } from "@react-native-community/picker";
 import { useDispatch } from "react-redux";
 import { addUserEmotion } from "../store/user/actions";
-import DatePicker from "react-native-datepicker";
 
-export default function SignUp() {
+export default function Feelings() {
   const [level, setLevel] = useState();
   const [description, setDescription] = useState("");
   const [date, setDate] = useState(new Date());
-  const [needHelp, setNeedHelp] = useState(true || false);
+  const [needHelp, setNeedHelp] = useState("");
   const dispatch = useDispatch();
 
-  console.log(needHelp, date, description, level);
+  console.log("This is data", needHelp, date, description, level);
 
   function submitForm(event) {
     event.preventDefault();
@@ -22,14 +21,13 @@ export default function SignUp() {
     setLevel();
     setDescription("");
     setDate(new Date());
-    setNeedHelp(true || false);
+    setNeedHelp("");
   }
 
   return (
     <View>
       <View style={{ margin: 15 }}>
         <Picker
-          value={level}
           selectedValue={level}
           onValueChange={(currentLevel) => setLevel(currentLevel)}
         >
@@ -44,34 +42,22 @@ export default function SignUp() {
           value={description}
           onChangeText={(text) => setDescription(text)}
           placeholder="a description"
-          type="description"
           required
         />
       </View>
       <View style={{ margin: 15 }}>
         <Picker
-          value={needHelp}
           selectedValue={needHelp}
-          onValueChange={(value) => {
-            setNeedHelp(value);
-          }}
+          onValueChange={(currentNeed) => setNeedHelp(currentNeed)}
         >
-          <Picker.Item label="Do you need help with something" value={null} />
-          <Picker.Item label="I need Help" value={true} />
-          <Picker.Item label="I can do this on my own" value={false} />
+          <Picker.Item label="Do you need help ?" value={null} />
+          <Picker.Item label="I need help" value="true" />
+          <Picker.Item label="I can do this on my own" value="false" />
         </Picker>
-      </View>
-      <View style={{ margin: 15 }}>
-        <DatePicker
-          date={date}
-          mode="date"
-          onDateChange={(date) => setDate(date)}
-          required
-        />
       </View>
       <Button
         title="Share your feeling"
-        text={"Share your feeling"}
+        text={"Feelings"}
         onPress={submitForm}
       />
     </View>

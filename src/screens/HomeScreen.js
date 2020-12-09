@@ -82,6 +82,12 @@ export default function HomeScreen({ navigation }) {
                 onPress={() => navigation.navigate("Login")}
               />
             )}
+            {token ? (
+              <Button
+                title="Feelings"
+                onPress={() => navigation.navigate("Feelings")}
+              />
+            ) : null}
           </View>
         </View>
         <ScrollView style={styles.scrollView}>
@@ -146,14 +152,6 @@ export default function HomeScreen({ navigation }) {
             );
           })}
         </ScrollView>
-        <View>
-          {token ? (
-            <Button
-              title="Feelings"
-              onPress={() => navigation.navigate("Feelings")}
-            />
-          ) : null}
-        </View>
       </ScrollView>
     </SafeAreaView>
   );

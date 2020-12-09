@@ -50,6 +50,12 @@ export default function HomeScreen({ navigation }) {
       ) : (
         <Button title="Login" onPress={() => navigation.navigate("Login")} />
       )}
+      {token ? (
+        <Button
+          title="Feelings"
+          onPress={() => navigation.navigate("Feelings")}
+        />
+      ) : null}
     </View>
   );
 }

@@ -1,4 +1,9 @@
-import { LOG_OUT, LOGIN_SUCCES, TOKEN_STILL_VALID } from "./actions";
+import {
+  LOG_OUT,
+  LOGIN_SUCCES,
+  TOKEN_STILL_VALID,
+  USEREMOTION_POST_SUCCESS,
+} from "./actions";
 
 const initialState = {
   token: localStorage.getItem("token"),
@@ -6,7 +11,7 @@ const initialState = {
   id: null,
   firstName: null,
   lastName: null,
-  phone: null
+  phone: null,
 };
 
 export default (state = initialState, action) => {
@@ -21,6 +26,15 @@ export default (state = initialState, action) => {
 
     case TOKEN_STILL_VALID:
       return { ...state, ...action.payload };
+
+    case USEREMOTION_POST_SUCCESS:
+      return {
+        ...state,
+        userEmotion: {
+          ...state.userEmotion,
+          ...action.payload,
+        },
+      };
 
     default:
       return state;

@@ -13,7 +13,7 @@ export default function HomeScreen({ navigation }) {
     console.log("logout");
     dispatch(logOut());
   }
-  console.log("token", token);
+  
  
   return (
     <View style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>

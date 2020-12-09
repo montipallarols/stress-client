@@ -26,6 +26,13 @@ const tokenStillValid = (userWithoutToken) => {
   };
 };
 
+export function userReflectionsFetched(reflections) {
+  return {
+    type: "REFLECTIONS_FETCHED",
+    payload: reflections
+  };
+}
+
 export const logOut = () => ({ type: LOG_OUT });
 
 export const signUp = (firstName, lastName, email, password, phone) => {
@@ -98,5 +105,22 @@ export const getUserWithStoredToken = () => {
     }
     dispatch(logOut());
     
+  };
+};
+
+export function getUserReflections (userId) {
+  return async (dispatch, getState) => {
+    const token = selectToken(getState());
+
+    if (token === null) return
+    console.log("did I get here?")
+    try {
+      const response = await axios.get(`/user/${userId}`);
+      console.log("User reflection response", response.data.user.reflections)
+      dispatch(userReflectionsFetched(response.data.user.reflections));
+      
+    } catch (error) {
+      console.log(error) 
+    }
   };
 };

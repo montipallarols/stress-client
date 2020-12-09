@@ -130,6 +130,11 @@ export const addUserEmotion = (level, description, needHelp, date) => {
         dispatch(setMessage("danger", true, error.message));
       }
       dispatch(appDoneLoading());
+    }
+  }
+}
+
+
 export function getUserReflections (userId) {
   return async (dispatch, getState) => {
     const token = selectToken(getState());

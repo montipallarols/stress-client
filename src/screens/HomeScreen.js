@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { emotionsFetched, fetchEmotions } from "../store/emotions/actions";
 import { selectAllEmotions } from "../store/emotions/selectors";
 import { logOut } from "../store/user/actions";
+import { getUserWithStoredToken } from "../store/user/actions";
 
 import { selectToken, selectUser } from "../store/user/selectors";
 

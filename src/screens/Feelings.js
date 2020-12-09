@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, TextInput, Button, StyleSheet, KeyboardAvoidingView } from "react-native";
+import { View, TextInput, Button, StyleSheet, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { Picker } from "@react-native-community/picker";
 import { useDispatch } from "react-redux";
 import { addUserEmotion } from "../store/user/actions";
@@ -26,7 +26,12 @@ export default function SignUp() {
   }
 
   return (
-    <View>
+    <KeyboardAvoidingView
+      behavior={Platform.OS == "ios" ? "padding" : "height"}
+      style={styles.container}
+    >
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <View style={styles.inner}>
       <View style={{ margin: 15 }}>
         <Picker
           value={level}
@@ -69,11 +74,26 @@ export default function SignUp() {
           required
         />
       </View>
-      <Button
-        title="Share your feeling"
-        text={"Share your feeling"}
-        onPress={submitForm}
-      />
     </View>
+    <Button
+    title="Share your feeling"
+    text={"Share your feeling"}
+    onPress={submitForm}
+  />
+    </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
+   
   );
 }
+
+
+const styles = StyleSheet.create({
+  container: {
+      flex: 1
+    },
+    inner: {
+      padding: 24,
+      flex: 1,
+      justifyContent: "space-around"
+    },
+});

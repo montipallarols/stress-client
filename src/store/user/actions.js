@@ -100,11 +100,11 @@ export const getUserWithStoredToken = () => {
 
 export const addUserEmotion = (level, description, needHelp, date) => {
   return async (dispatch, getState) => {
-    const { user } = selectUser(getState());
-    console.log(user);
+    const { id } = selectUser(getState());
+    console.log(id);
     dispatch(appLoading());
     try {
-      const response = await axios.post(`/user/${user.id}`, {
+      const response = await axios.post(`/user/${id}`, {
         level,
         description,
         needHelp,

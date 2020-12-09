@@ -56,6 +56,10 @@ export default function HomeScreen({ navigation }) {
           onPress={() => navigation.navigate("Feelings")}
         />
       ) : null}
+      <Button
+        title="Feelings"
+        onPress={() => navigation.navigate("Feelings")}
+      />
     </View>
   );
 }

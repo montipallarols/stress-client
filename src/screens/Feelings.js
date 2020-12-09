@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, TextInput, Button, StyleSheet } from "react-native";
+import { View, TextInput, Button, StyleSheet, KeyboardAvoidingView } from "react-native";
 import { Picker } from "@react-native-community/picker";
 import { useDispatch } from "react-redux";
 import { addUserEmotion } from "../store/user/actions";

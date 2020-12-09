@@ -29,7 +29,7 @@ export default function HomeScreen({ navigation }) {
     console.log("logout");
     dispatch(logOut());
   }
-
+  console.log("emotions", emotions);
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -93,6 +93,17 @@ export default function HomeScreen({ navigation }) {
                     }}
                   >
                     &#128533;
+                  </Text>
+                ) : emotion.level === 2 ? (
+                  <Text
+                    style={{
+                      fontWeight: "bold",
+                      fontSize: 55,
+                      textAlign: "center",
+                      margin: 20,
+                    }}
+                  >
+                    &#128528;
                   </Text>
                 ) : (
                   <Text

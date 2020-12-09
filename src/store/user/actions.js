@@ -26,6 +26,13 @@ const tokenStillValid = (userWithoutToken) => {
   };
 };
 
+export function userReflectionsFetched(reflections) {
+  return {
+    type: "REFLECTIONS_FETCHED",
+    payload: reflections
+  };
+}
+
 export const logOut = () => ({ type: LOG_OUT });
 
 export const userEmotionPostSuccess = (userEmotion) => ({
@@ -35,9 +42,9 @@ export const userEmotionPostSuccess = (userEmotion) => ({
 
 export const signUp = (firstName, lastName, email, password, phone) => {
   return async (dispatch, getState) => {
-    console.log("REACHED?");
+    // console.log("REACHED?");
     try {
-      console.log("fired");
+      // console.log("fired");
       const response = await axios.post(`/signup`, {
         firstName,
         lastName,
@@ -45,7 +52,7 @@ export const signUp = (firstName, lastName, email, password, phone) => {
         password,
         phone,
       });
-      console.log("response?");
+      // console.log("response?");
       dispatch(loginSucces(response.data));
     } catch (error) {
       console.log("...or no response?", error);
@@ -123,6 +130,19 @@ export const addUserEmotion = (level, description, needHelp, date) => {
         dispatch(setMessage("danger", true, error.message));
       }
       dispatch(appDoneLoading());
+export function getUserReflections (userId) {
+  return async (dispatch, getState) => {
+    const token = selectToken(getState());
+
+    if (token === null) return
+    console.log("did I get here?")
+    try {
+      const response = await axios.get(`/user/${userId}`);
+      console.log("User reflection response", response.data.user.reflections)
+      dispatch(userReflectionsFetched(response.data.user.reflections));
+      
+    } catch (error) {
+      console.log(error) 
     }
   };
 };

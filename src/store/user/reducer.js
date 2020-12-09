@@ -12,6 +12,7 @@ const initialState = {
   firstName: null,
   lastName: null,
   phone: null,
+  reflections: []
 };
 
 export default (state = initialState, action) => {
@@ -35,6 +36,12 @@ export default (state = initialState, action) => {
           ...action.payload,
         },
       };
+    case "REFLECTIONS_FETCHED": {
+      return {
+          ...state,
+          reflections: [...action.payload]
+        };
+    }
 
     default:
       return state;

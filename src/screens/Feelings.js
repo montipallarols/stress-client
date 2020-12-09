@@ -1,27 +1,27 @@
 import React, { useState } from "react";
-import { View, TextInput, Button } from "react-native";
+import { View, TextInput, Button, Switch } from "react-native";
 import { Picker } from "@react-native-community/picker";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addUserEmotion } from "../store/user/actions";
+import { selectUser } from "../store/user/selectors";
 
 export default function Feelings() {
-  const [level, setLevel] = useState();
+  const [level, setLevel] = useState(null);
   const [description, setDescription] = useState("");
-  const [date, setDate] = useState(new Date());
-  const [needHelp, setNeedHelp] = useState("");
+  const [date, setDate] = useState(true);
+  const [needHelp, setNeedHelp] = useState(null);
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
+  const userId = user.id;
 
-  console.log("This is data", needHelp, date, description, level);
+  console.log("This is data", needHelp, date, description, level, userId);
 
-  function submitForm(event) {
+  function submitFeeling(event) {
     event.preventDefault();
 
-    dispatch(addUserEmotion(level, description, date, needHelp));
+    dispatch(addUserEmotion(level, description, date, needHelp, userId));
 
-    setLevel();
-    setDescription("");
-    setDate(new Date());
-    setNeedHelp("");
+    setDate(true);
   }
 
   return (
@@ -46,19 +46,17 @@ export default function Feelings() {
         />
       </View>
       <View style={{ margin: 15 }}>
-        <Picker
-          selectedValue={needHelp}
-          onValueChange={(currentNeed) => setNeedHelp(currentNeed)}
-        >
-          <Picker.Item label="Do you need help ?" value={null} />
-          <Picker.Item label="I need help" value="true" />
-          <Picker.Item label="I can do this on my own" value="false" />
-        </Picker>
+        <Switch
+          trackColor={{ false: "#767577", true: "#81b0ff" }}
+          thumbColor="#f5dd4b"
+          onValueChange={setNeedHelp}
+          value={needHelp}
+        />
       </View>
       <Button
         title="Share your feeling"
-        text={"Feelings"}
-        onPress={submitForm}
+        text={"Share your feeling"}
+        onPress={submitFeeling}
       />
     </View>
   );

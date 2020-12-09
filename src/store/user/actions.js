@@ -4,8 +4,7 @@ import {
   appLoading,
   appDoneLoading,
   showMessage,
-  setMessage
-
+  setMessage,
 } from "../appState/actions";
 
 export const LOGIN_SUCCES = "LOGIN_SUCCES";
@@ -16,7 +15,7 @@ export const USEREMOTION_POST_SUCCESS = "USEREMOTION_POST_SUCCESS";
 export function setLoading(loading) {
   return {
     type: "SET_LOADING",
-    payload: loading
+    payload: loading,
   };
 }
 
@@ -44,7 +43,7 @@ export function userReflectionsFetched(reflections) {
 export function reflectionCreated(reflection) {
   return {
     type: "REFLECTION_CREATED",
-    payload: reflection
+    payload: reflection,
   };
 }
 
@@ -120,13 +119,11 @@ export const getUserWithStoredToken = () => {
   };
 };
 
-export const addUserEmotion = (level, description, needHelp, date) => {
+export const addUserEmotion = (level, description, needHelp, date, userId) => {
   return async (dispatch, getState) => {
-    const { id } = selectUser(getState());
-    console.log(id);
     dispatch(appLoading());
     try {
-      const response = await axios.post(`/user/${id}`, {
+      const response = await axios.post(`/user/${userId}`, {
         level,
         description,
         needHelp,
@@ -134,9 +131,10 @@ export const addUserEmotion = (level, description, needHelp, date) => {
       });
 
       dispatch(userEmotionPostSuccess(response.data));
-      dispatch(showMessageWithTimeout("success", true, "feeling created"));
+      dispatch(showMessage("success", true, "feeling created"));
       dispatch(appDoneLoading());
     } catch (error) {
+      console.log("Is this undefined", error);
       if (error.response) {
         console.log(error.response.data.message);
         dispatch(setMessage("danger", true, error.response.data.message));
@@ -149,9 +147,7 @@ export const addUserEmotion = (level, description, needHelp, date) => {
   };
 };
 
-
-
-export function getUserReflections (userId) {
+export function getUserReflections(userId) {
   return async (dispatch, getState) => {
     const token = selectToken(getState());
 
@@ -165,32 +161,31 @@ export function getUserReflections (userId) {
       console.log(error);
     }
   };
+}
 
-};
-
-export function addReflection (today, userId, problem, solution, score ) {
+export function addReflection(today, userId, problem, solution, score) {
   return async (dispatch, getState) => {
     const token = selectToken(getState());
 
-    if (token === null) return
-  
+    if (token === null) return;
+
     dispatch(setLoading(true));
     try {
-      const response = await axios.post(`user/reflections/${userId}/${today}`, {
-        problem,
-        solution,
-        score
-      },
-        {headers: { Authorization: `Bearer ${token}` },
-      });
-      console.log("New reflection response", response.data)
+      const response = await axios.post(
+        `user/reflections/${userId}/${today}`,
+        {
+          problem,
+          solution,
+          score,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      console.log("New reflection response", response.data);
       dispatch(reflectionCreated(response.data));
       dispatch(setLoading(false));
-      dispatch(showMessage("reflection"))
+      dispatch(showMessage("reflection"));
     } catch (error) {
-      console.log(error) 
+      console.log(error);
     }
   };
-};
-
-
+}

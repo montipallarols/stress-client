@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { login } from "../store/user/actions";
 import { View, Text, TextInput, Button } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { selectToken } from "../store/user/selectors";
+import { useDispatch } from "react-redux";
 
-export default function Login({navigation}) {
-  const dispatch = useDispatch();
-  const token = useSelector(selectToken);
+export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
   //  useEffect(() => {
   //   if (token !== null) {
@@ -16,7 +14,7 @@ export default function Login({navigation}) {
   //   }
   // }, [token, navigation]);
 
-  function submitForm() {
+  function submitForm(text) {
     // event.preventDefault();
 
     dispatch(login(email, password));
@@ -26,12 +24,11 @@ export default function Login({navigation}) {
     setPassword("");
   }
 
-
   return (
     <View>
       <Text>Login</Text>
       <TextInput
-        value={email}
+        value={emgail}
         onChangeText={(text) => setEmail(text)}
         type="email"
         placeholder="Enter email"

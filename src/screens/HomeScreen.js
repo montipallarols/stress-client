@@ -8,6 +8,7 @@ import { selectAllEmotions } from "../store/emotions/selectors";
 import { getUserWithStoredToken, logOut } from "../store/user/actions";
 import Constants from "expo-constants";
 
+
 import { selectToken, selectUser } from "../store/user/selectors";
 
 export default function HomeScreen({ navigation }) {
@@ -143,6 +144,28 @@ export default function HomeScreen({ navigation }) {
         </ScrollView>
       </ScrollView>
     </SafeAreaView>
+      {token ? (
+        <Button
+          title="My Profile"
+          onPress={() => navigation.navigate("My Profile")}
+        />
+      ) : (
+        <Button title="SignUp" onPress={() => navigation.navigate("SignUp")} />
+      )}
+
+      {token ? (
+        <Button title="Logout" onPress={onPressLogout} />
+      ) : (
+        <Button title="Login" onPress={() => navigation.navigate("Login")} />
+      )}
+      {token ? (
+        <Button
+          title="Feelings"
+          onPress={() => navigation.navigate("Feelings")}
+        />
+      ) : null}
+    </View>
+
   );
 }
 

@@ -1,15 +1,24 @@
 import axios from "../../lib/axios";
-import { selectToken } from "./selectors";
+import { selectToken, selectUser } from "./selectors";
 import {
   appLoading,
   appDoneLoading,
-  showMessageWithTimeout,
-  setMessage,
+  showMessage,
+  setMessage
+
 } from "../appState/actions";
 
 export const LOGIN_SUCCES = "LOGIN_SUCCES";
 export const TOKEN_STILL_VALID = "TOKEN_STILL_VALID";
 export const LOG_OUT = "LOG_OUT";
+export const USEREMOTION_POST_SUCCESS = "USEREMOTION_POST_SUCCESS";
+
+export function setLoading(loading) {
+  return {
+    type: "SET_LOADING",
+    payload: loading
+  };
+}
 
 const loginSucces = (userWithToken) => {
   return {
@@ -28,11 +37,23 @@ const tokenStillValid = (userWithoutToken) => {
 export function userReflectionsFetched(reflections) {
   return {
     type: "REFLECTIONS_FETCHED",
-    payload: reflections
+    payload: reflections,
+  };
+}
+
+export function reflectionCreated(reflection) {
+  return {
+    type: "REFLECTION_CREATED",
+    payload: reflection
   };
 }
 
 export const logOut = () => ({ type: LOG_OUT });
+
+export const userEmotionPostSuccess = (userEmotion) => ({
+  type: USEREMOTION_POST_SUCCESS,
+  payload: userEmotion,
+});
 
 export const signUp = (firstName, lastName, email, password, phone) => {
   return async (dispatch, getState) => {
@@ -99,19 +120,75 @@ export const getUserWithStoredToken = () => {
   };
 };
 
-export function getUserReflections (userId) {
+export const addUserEmotion = (level, description, needHelp, date) => {
+  return async (dispatch, getState) => {
+    const { user } = selectUser(getState());
+    console.log(user);
+    dispatch(appLoading());
+    try {
+      const response = await axios.post(`/user/${user.id}`, {
+        level,
+        description,
+        needHelp,
+        date,
+      });
+
+      dispatch(userEmotionPostSuccess(response.data));
+      dispatch(showMessageWithTimeout("success", true, "feeling created"));
+      dispatch(appDoneLoading());
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data.message);
+        dispatch(setMessage("danger", true, error.response.data.message));
+      } else {
+        console.log(error.message);
+        dispatch(setMessage("danger", true, error.message));
+      }
+      dispatch(appDoneLoading());
+    }
+  };
+};
+
+export function getUserReflections(userId) {
+  return async (dispatch, getState) => {
+    const token = selectToken(getState());
+
+    if (token === null) return;
+    console.log("did I get here?");
+    try {
+      const response = await axios.get(`/user/${userId}`);
+      console.log("User reflection response", response.data.user.reflections);
+      dispatch(userReflectionsFetched(response.data.user.reflections));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+};
+
+export function addReflection (today, userId, problem, solution, score ) {
   return async (dispatch, getState) => {
     const token = selectToken(getState());
 
     if (token === null) return
-    console.log("did I get here?")
+  
+    dispatch(setLoading(true));
     try {
-      const response = await axios.get(`/user/${userId}`);
-      console.log("User reflection response", response.data.user.reflections)
-      dispatch(userReflectionsFetched(response.data.user.reflections));
-      
+      const response = await axios.post(`user/reflections/${userId}/${today}`, {
+        problem,
+        solution,
+        score
+      },
+        {headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log("New reflection response", response.data)
+      dispatch(reflectionCreated(response.data));
+      dispatch(setLoading(false));
+      dispatch(showMessage("reflection"))
     } catch (error) {
       console.log(error) 
     }
   };
 };
+
+

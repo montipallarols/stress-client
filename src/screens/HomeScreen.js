@@ -12,8 +12,6 @@ import { emotionsFetched, fetchEmotions } from "../store/emotions/actions";
 import { selectAllEmotions } from "../store/emotions/selectors";
 import { getUserWithStoredToken, logOut } from "../store/user/actions";
 import Constants from "expo-constants";
-import { logOut } from "../store/user/actions";
-import { getUserWithStoredToken } from "../store/user/actions";
 
 import { selectToken, selectUser } from "../store/user/selectors";
 
@@ -76,23 +74,6 @@ export default function HomeScreen({ navigation }) {
               />
             )}
 
-      {token ? (
-        <Button title="Logout" onPress={onPressLogout} />
-      ) : (
-        <Button title="Login" onPress={() => navigation.navigate("Login")} />
-      )}
-      {token ? (
-        <Button
-          title="Feelings"
-          onPress={() => navigation.navigate("Feelings")}
-        />
-      ) : null}
-      <Button
-        title="Feelings"
-        onPress={() => navigation.navigate("Feelings")}
-      />
-    </View>
-    <View>
             {token ? (
               <Button title="Logout" onPress={onPressLogout} />
             ) : (
@@ -101,6 +82,12 @@ export default function HomeScreen({ navigation }) {
                 onPress={() => navigation.navigate("Login")}
               />
             )}
+            {token ? (
+              <Button
+                title="Feelings"
+                onPress={() => navigation.navigate("Feelings")}
+              />
+            ) : null}
           </View>
         </View>
         <ScrollView style={styles.scrollView}>
@@ -165,14 +152,6 @@ export default function HomeScreen({ navigation }) {
             );
           })}
         </ScrollView>
-        <View>
-          {token ? (
-            <Button
-              title="Feelings"
-              onPress={() => navigation.navigate("Feelings")}
-            />
-          ) : null}
-        </View>
       </ScrollView>
     </SafeAreaView>
   );

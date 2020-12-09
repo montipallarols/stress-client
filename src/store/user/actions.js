@@ -3,14 +3,22 @@ import { selectToken, selectUser } from "./selectors";
 import {
   appLoading,
   appDoneLoading,
-  showMessageWithTimeout,
-  setMessage,
+  showMessage,
+  setMessage
+
 } from "../appState/actions";
 
 export const LOGIN_SUCCES = "LOGIN_SUCCES";
 export const TOKEN_STILL_VALID = "TOKEN_STILL_VALID";
 export const LOG_OUT = "LOG_OUT";
 export const USEREMOTION_POST_SUCCESS = "USEREMOTION_POST_SUCCESS";
+
+export function setLoading(loading) {
+  return {
+    type: "SET_LOADING",
+    payload: loading
+  };
+}
 
 const loginSucces = (userWithToken) => {
   return {
@@ -30,6 +38,13 @@ export function userReflectionsFetched(reflections) {
   return {
     type: "REFLECTIONS_FETCHED",
     payload: reflections,
+  };
+}
+
+export function reflectionCreated(reflection) {
+  return {
+    type: "REFLECTION_CREATED",
+    payload: reflection
   };
 }
 
@@ -148,4 +163,33 @@ export function getUserReflections(userId) {
       console.log(error);
     }
   };
+
+};
+
+export function addReflection (today, userId, problem, solution, score ) {
+  return async (dispatch, getState) => {
+    const token = selectToken(getState());
+
+    if (token === null) return
+  
+    dispatch(setLoading(true));
+    try {
+      const response = await axios.post(`user/reflections/${userId}/${today}`, {
+        problem,
+        solution,
+        score
+      },
+        {headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log("New reflection response", response.data)
+      dispatch(reflectionCreated(response.data));
+      dispatch(setLoading(false));
+      dispatch(showMessage("reflection"))
+    } catch (error) {
+      console.log(error) 
+    }
+  };
+};
+
 }
+

@@ -12,6 +12,13 @@ export const LOGIN_SUCCES = "LOGIN_SUCCES";
 export const TOKEN_STILL_VALID = "TOKEN_STILL_VALID";
 export const LOG_OUT = "LOG_OUT";
 
+export function setLoading(loading) {
+  return {
+    type: "SET_LOADING",
+    payload: loading
+  };
+}
+
 const loginSucces = (userWithToken) => {
   return {
     type: LOGIN_SUCCES,
@@ -30,6 +37,13 @@ export function userReflectionsFetched(reflections) {
   return {
     type: "REFLECTIONS_FETCHED",
     payload: reflections
+  };
+}
+
+export function reflectionCreated(reflection) {
+  return {
+    type: "REFLECTION_CREATED",
+    payload: reflection
   };
 }
 
@@ -119,6 +133,31 @@ export function getUserReflections (userId) {
       console.log("User reflection response", response.data.user.reflections)
       dispatch(userReflectionsFetched(response.data.user.reflections));
       
+    } catch (error) {
+      console.log(error) 
+    }
+  };
+};
+
+export function addReflection (userId, date, problem, solution, score ) {
+  return async (dispatch, getState) => {
+    const token = selectToken(getState());
+
+    if (token === null) return
+  
+    dispatch(setLoading(true));
+    try {
+      const response = await axios.post(`user/reservations/${userId}`, {
+        date,
+        problem,
+        solution,
+        score
+      },
+        {headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log("New reflection response", response.data)
+      dispatch(reflectionCreated(response.data));
+      dispatch(setLoading(false));
     } catch (error) {
       console.log(error) 
     }

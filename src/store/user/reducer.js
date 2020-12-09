@@ -1,6 +1,7 @@
 import { LOG_OUT, LOGIN_SUCCES, TOKEN_STILL_VALID } from "./actions";
 
 const initialState = {
+  loading: true,
   token: localStorage.getItem("token"),
   email: null,
   id: null,
@@ -28,6 +29,12 @@ export default (state = initialState, action) => {
           ...state,
           reflections: [...action.payload]
         };
+    }
+    case "REFLECTION_CREATED": {
+      return {
+        ...state,
+        reflections: [...state.reflections, action.payload]
+      };
     }
 
     default:

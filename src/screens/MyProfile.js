@@ -44,8 +44,9 @@ export default function HomeScreen({navigation}) {
       >
         History
       </Text>
+      <ScrollView style={styles.scrollView}>
       {userReflections.map(r => {
-        return <ScrollView key={r.id} style={styles.scrollView}>
+        return <View key={r.id}>
           <Text
           style={{
             fontWeight: "bold",
@@ -77,9 +78,12 @@ export default function HomeScreen({navigation}) {
         }}
           >How well I dealt with it:</Text>
           <Text style={styles.text}>{r.score}/10</Text>
-        </ScrollView>
+   
+      </View>
+       
       })}
-    
+      </ScrollView>
+    <Button title="Add today's reflection" onPress={() => navigation.navigate("Reflection")} />
      
     </View>
     </SafeAreaView>

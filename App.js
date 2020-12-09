@@ -16,6 +16,7 @@ import HomeScreen from "./src/screens/HomeScreen";
 import MyProfile from "./src/screens/MyProfile";
 import Login from "./src/screens/Login";
 import Signup from "./src/screens/Signup";
+import Reflection from "./src/screens/Reflection";
 
 
 const Stack = createStackNavigator();
@@ -55,6 +56,11 @@ export default function App() {
             name="SignUp"
             component={Signup}
             options={{ title: "SignUp" }}
+          />
+          <Stack.Screen
+            name="Reflection"
+            component={Reflection}
+            options={{ title: "Reflection" }}
           />
         </Stack.Navigator>
       </NavigationContainer>

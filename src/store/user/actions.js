@@ -4,9 +4,8 @@ import {
   appLoading,
   appDoneLoading,
   showMessageWithTimeout,
-  setMessage
+  setMessage,
 } from "../appState/actions";
-
 
 export const LOGIN_SUCCES = "LOGIN_SUCCES";
 export const TOKEN_STILL_VALID = "TOKEN_STILL_VALID";
@@ -30,9 +29,9 @@ export const logOut = () => ({ type: LOG_OUT });
 
 export const signUp = (firstName, lastName, email, password, phone) => {
   return async (dispatch, getState) => {
-    console.log("REACHED?");
+    // console.log("REACHED?");
     try {
-      console.log("fired");
+      // console.log("fired");
       const response = await axios.post(`/signup`, {
         firstName,
         lastName,
@@ -40,7 +39,7 @@ export const signUp = (firstName, lastName, email, password, phone) => {
         password,
         phone,
       });
-      console.log("response?");
+      // console.log("response?");
       dispatch(loginSucces(response.data));
     } catch (error) {
       console.log("...or no response?", error);
@@ -53,7 +52,6 @@ export const signUp = (firstName, lastName, email, password, phone) => {
 
 export const login = (email, password) => {
   return async (dispatch, getState) => {
-   
     try {
       const response = await axios.post(`/login`, {
         email,
@@ -61,16 +59,12 @@ export const login = (email, password) => {
       });
       console.log("Login response", response.data);
       dispatch(loginSucces(response.data));
-      
     } catch (error) {
       if (error.response) {
         console.log(error.response.data.message);
-       
       } else {
         console.log(error.message);
-        
       }
-      
     }
   };
 };
@@ -81,14 +75,12 @@ export const getUserWithStoredToken = () => {
 
     if (token === null) return;
 
-   
     try {
       const response = await axios.get(`/me`, {
         header: { Authorization: `Bearer ${token}` },
       });
 
       dispatch(tokenStillValid(response.data));
-     
     } catch (error) {
       if (error.response) {
         console.log(error.response.message);
@@ -97,6 +89,5 @@ export const getUserWithStoredToken = () => {
       }
     }
     dispatch(logOut());
-    
   };
 };

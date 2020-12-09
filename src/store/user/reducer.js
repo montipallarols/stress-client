@@ -2,8 +2,11 @@ import { LOG_OUT, LOGIN_SUCCES, TOKEN_STILL_VALID } from "./actions";
 
 const initialState = {
   token: localStorage.getItem("token"),
-  name: null,
   email: null,
+  id: null,
+  firstName: null,
+  lastName: null,
+  phone: null
 };
 
 export default (state = initialState, action) => {
@@ -14,7 +17,7 @@ export default (state = initialState, action) => {
 
     case LOG_OUT:
       localStorage.removeItem("token");
-      return { ...state, ...action.payload };
+      return { ...initialState, token: null };
 
     case TOKEN_STILL_VALID:
       return { ...state, ...action.payload };

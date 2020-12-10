@@ -69,7 +69,7 @@ export default function HomeScreen({ navigation }) {
               />
             ) : (
               <Button
-                title="SignUp"
+                title="Sign up"
                 onPress={() => navigation.navigate("SignUp")}
               />
             )}
@@ -103,7 +103,8 @@ export default function HomeScreen({ navigation }) {
                       margin: 20,
                     }}
                   >
-                    &#128533;
+                    {/* &#128533; */}
+                    &#129327;
                   </Text>
                 ) : emotion.level === 2 ? (
                   <Text

@@ -21,16 +21,8 @@ import Signup from "./src/screens/Signup";
 import Reflection from "./src/screens/Reflection";
 import Feelings from "./src/screens/Feelings";
 
-// const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
 
-// function Reflection() {
-//   return (
-//     <Tab.Navigator>
-//       <Tab.Screen name="Reflection" component={Reflection} />
-//     </Tab.Navigator>
-//   );
-// }
 
 export default function App() {
   return (

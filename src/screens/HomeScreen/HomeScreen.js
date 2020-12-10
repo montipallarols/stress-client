@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -8,12 +8,13 @@ import {
   SafeAreaView,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { emotionsFetched, fetchEmotions } from "../store/emotions/actions";
-import { selectAllEmotions } from "../store/emotions/selectors";
-import { getUserWithStoredToken, logOut } from "../store/user/actions";
+import { emotionsFetched, fetchEmotions } from "../../store/emotions/actions";
+import { selectAllEmotions } from "../../store/emotions/selectors";
+import { getUserWithStoredToken, logOut } from "../../store/user/actions";
 import Constants from "expo-constants";
 
-import { selectToken, selectUser } from "../store/user/selectors";
+import { selectToken, selectUser } from "../../store/user/selectors";
+import CommentForm from "./CommentForm";
 
 export default function HomeScreen({ navigation }) {
   useEffect(() => {
@@ -25,6 +26,13 @@ export default function HomeScreen({ navigation }) {
   const user = useSelector(selectUser);
   const token = user.token;
   const emotions = useSelector(selectAllEmotions);
+
+  const [commentMode, setCommentMode] = useState(false);
+  // const [chosenEmotionId, setChosenEmotionId] = useState(null);
+
+  function commentHandler() {
+    setCommentMode(!commentMode);
+  }
 
   useEffect(() => {
     dispatch(getUserWithStoredToken());
@@ -103,6 +111,9 @@ export default function HomeScreen({ navigation }) {
                       margin: 20,
                     }}
                   >
+                    {commentMode ? (
+                      <CommentForm userEmotionId={emotion.id} />
+                    ) : null}
                     {/* &#128533; */}
                     &#129327;
                   </Text>
@@ -149,6 +160,19 @@ export default function HomeScreen({ navigation }) {
                 >
                   {emotion.description}
                 </Text>
+                <Text
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: 18,
+                    textAlign: "center",
+                    margin: 20,
+                  }}
+                >
+                  {emotion.comments.map((comment) => {
+                    return comment.userId + ": " + comment.content;
+                  })}
+                </Text>
+                <Button title="Comment" onPress={commentHandler} />
               </View>
             );
           })}

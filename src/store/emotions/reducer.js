@@ -8,7 +8,19 @@ export default (state = initialState, action) => {
       return {
         all_emotions: action.payload,
       };
-
+    case "COMMENT_CREATED":
+      console.log("GOT HIT REDUCER");
+      return {
+        ...state,
+        all_emotions: state.all_emotions.map((emotion) =>
+          emotion.id === action.payload.userEmotionId
+            ? {
+                ...emotion,
+                comments: [action.payload],
+              }
+            : emotion
+        ),
+      };
     default:
       return state;
   }

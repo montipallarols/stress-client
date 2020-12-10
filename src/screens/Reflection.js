@@ -12,7 +12,6 @@ export default function Reflection() {
     const message = useSelector(selectMessage);
 
     const currentDate = new Date().toLocaleDateString("en-GB")
-    console.log("Current date", currentDate)
     let today = currentDate.split("/").reverse().join("-");
     console.log(today)
 

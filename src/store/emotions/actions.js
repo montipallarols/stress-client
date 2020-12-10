@@ -12,8 +12,8 @@ export const fetchEmotions = () => {
     console.log("action got hit");
     try {
       const response = await axios.get(`/emotion`);
-      console.log("response", response.data.userEmotions);
-      dispatch(emotionsFetched(response.data.userEmotions));
+      console.log("response", response.data.userEmos);
+      dispatch(emotionsFetched(response.data.userEmos));
     } catch (error) {
       console.log("no response", error);
       if (error.response) {

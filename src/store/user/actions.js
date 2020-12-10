@@ -135,7 +135,7 @@ export const addUserEmotion = (level, description, needHelp, userId) => {
       { headers: { Authorization: `Bearer ${token}` }});
 
       dispatch(userEmotionPostSuccess(response.data));
-      dispatch(showMessage("success", true, "feeling created"));
+      dispatch(showMessage("feeling created"));
       dispatch(appDoneLoading());
     } catch (error) {
       console.log("Is this undefined", error);

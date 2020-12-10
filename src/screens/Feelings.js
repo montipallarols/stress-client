@@ -1,36 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, TextInput, Button, Switch, Text, StyleSheet } from "react-native";
 import { Picker } from "@react-native-community/picker";
 import { useDispatch, useSelector } from "react-redux";
 import { addUserEmotion } from "../store/user/actions";
 import { selectUser } from "../store/user/selectors";
+import { selectMessage } from "../store/appState/selectors";
 
-export default function Feelings() {
+export default function Feelings({navigation}) {
   const [level, setLevel] = useState(1);
   const [description, setDescription] = useState("");
   const [needHelp, setNeedHelp] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const userId = user.id;
+  const message = useSelector(selectMessage);
 
 
   function submitFeeling() {
-    // event.preventDefault();
-
     dispatch(addUserEmotion(level, description, needHelp, userId));
-    console.log("This is data", level, description, needHelp, userId);
   }
-  console.log("Need help?", needHelp)
+
+  useEffect(() => {
+   if (message === "feeling created") {
+    navigation.navigate("Quotes", { level })
+   }
+  }, [message]);
+
+
+  
   return (
     <View>
       <View style={{ margin: 15 }}>
-      <Text style={styles.text}>How stressed are you?</Text>
+      <Text style={styles.text}>How are you feeling?</Text>
         <Picker
           style={styles.picker}
           selectedValue={level}
           onValueChange={(currentLevel) => setLevel(currentLevel)}
         > 
-          {/* <Picker.Item label="How stressed are you?" value={null} /> */}
+      
           <Picker.Item label="&#129327;" value={1} />
           <Picker.Item label="&#128528;" value={2} />
           <Picker.Item label="&#128513;" value={3} />
@@ -54,7 +61,6 @@ export default function Feelings() {
           selectedValue={needHelp}
           onValueChange={(itemValue, itemIndex) => setNeedHelp(itemValue)}
         >
-          {/* <Picker.Item label="Do you need help?" value={false} /> */}
           <Picker.Item label="Yes" value={true} />
           <Picker.Item label="No" value={false} />
         </Picker>

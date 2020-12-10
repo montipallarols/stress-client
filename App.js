@@ -20,6 +20,7 @@ import Signup from "./src/screens/Signup";
 
 import Reflection from "./src/screens/Reflection";
 import Feelings from "./src/screens/Feelings";
+import Quotes from "./src/screens/Quotes";
 
 const Stack = createStackNavigator();
 
@@ -67,6 +68,12 @@ export default function App() {
             name="Feelings"
             component={Feelings}
             options={{ title: "Feelings" }}
+
+          />
+           <Stack.Screen 
+            name="Quotes"
+            component={Quotes}
+            options={{ title: "Quotes" }}
 
           />
         </Stack.Navigator>

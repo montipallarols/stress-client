@@ -22,6 +22,8 @@ export default function HomeScreen({navigation}) {
       dispatch(getUserReflections(userId))
   }, [dispatch, userId]);
 
+
+
   return (
     <SafeAreaView style={styles.container}>
     <View style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
@@ -83,6 +85,7 @@ export default function HomeScreen({navigation}) {
        
       })}
       </ScrollView>
+
     <Button title="Add today's reflection" onPress={() => navigation.navigate("Reflection")} />
      
     </View>

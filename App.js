@@ -11,6 +11,7 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { StyleSheet, Text, View } from "react-native";
 import HomeScreen from "./src/screens/HomeScreen";
 import MyProfile from "./src/screens/MyProfile";
@@ -20,8 +21,16 @@ import Signup from "./src/screens/Signup";
 import Reflection from "./src/screens/Reflection";
 import Feelings from "./src/screens/Feelings";
 
-
+// const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
+
+// function Reflection() {
+//   return (
+//     <Tab.Navigator>
+//       <Tab.Screen name="Reflection" component={Reflection} />
+//     </Tab.Navigator>
+//   );
+// }
 
 export default function App() {
   return (
@@ -61,7 +70,8 @@ export default function App() {
             name="Reflection"
             component={Reflection}
             options={{ title: "Reflection" }}
-
+          />
+            <Stack.Screen 
             name="Feelings"
             component={Feelings}
             options={{ title: "Feelings" }}

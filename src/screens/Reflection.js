@@ -27,6 +27,7 @@ export default function Reflection() {
         setSolution("")
         setScore("")
     }
+
    
     return (
         <KeyboardAvoidingView

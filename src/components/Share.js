@@ -8,7 +8,7 @@ export default function WhatsAppShare() {
   const onShare = async () => {
     try {
       const result = await Share.share({
-        message: "Hi you stranger, can you help me please",
+        message: "Help me",
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {

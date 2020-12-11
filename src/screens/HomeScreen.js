@@ -161,6 +161,7 @@ export default function HomeScreen({ navigation }) {
                 </Text>
                 <Text>{emotion.user.phone}</Text>
                 <Button title="Send a message" onPress={sendWhatsApp} />
+                <WhatsAppShare />
               </View>
             );
           })}

@@ -8,11 +8,13 @@ import {
 } from "react-native";
 import { useDispatch } from "react-redux";
 import { addComment } from "../../store/emotions/actions";
+import { selectToken } from "../../store/user/selectors";
 
 export default function CommentForm(props) {
   const [content, setContent] = useState("");
   const dispatch = useDispatch();
   const userEmotionId = props.userEmotionId;
+  const token = useSelector(selectToken)
 
   function submitComment() {
     console.log("Comment:", content);
@@ -22,6 +24,7 @@ export default function CommentForm(props) {
 
   return (
     <View>
+     
       <Text style={styles.text}>Comment</Text>
       <TextInput
         style={styles.textInput}

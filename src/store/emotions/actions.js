@@ -60,3 +60,19 @@ export function addComment(content, userEmotionId) {
     }
   };
 }
+
+export const fetchQuotes = (level) => {
+  return async (dispatch, getState) => {
+    console.log("action got hit");
+    try {
+      const response = await axios.get(`/emotion/${level}/quotes`);
+      console.log("quotes response", response.data.quotes);
+      dispatch(quotesFetched(response.data.quotes));
+    } catch (error) {
+      console.log("no response", error);
+      if (error.response) {
+        console.log(error.response.data.message);
+      }
+    }
+  };
+};

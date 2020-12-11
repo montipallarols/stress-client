@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -9,24 +9,32 @@ import {
   Linking,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { emotionsFetched, fetchEmotions } from "../store/emotions/actions";
-import { selectAllEmotions } from "../store/emotions/selectors";
-import { getUserWithStoredToken, logOut } from "../store/user/actions";
+import { emotionsFetched, fetchEmotions } from "../../store/emotions/actions";
+import { selectAllEmotions } from "../../store/emotions/selectors";
+import { getUserWithStoredToken, logOut } from "../../store/user/actions";
 import Constants from "expo-constants";
 import WhatsAppShare from "../components/Share";
 
-import { selectToken, selectUser } from "../store/user/selectors";
+import { selectToken, selectUser } from "../../store/user/selectors";
+import CommentForm from "./CommentForm";
 
 export default function HomeScreen({ navigation }) {
-  useEffect(() => {
-    console.log("FETCH GOT HIT");
-    dispatch(fetchEmotions());
-  }, []);
-
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const token = user.token;
   const emotions = useSelector(selectAllEmotions);
+
+  const [commentMode, setCommentMode] = useState(false);
+  // const [chosenEmotionId, setChosenEmotionId] = useState(null);
+
+  function commentHandler() {
+    setCommentMode(!commentMode);
+  }
+
+  useEffect(() => {
+    console.log("FETCH GOT HIT");
+    dispatch(fetchEmotions());
+  }, []);
 
   useEffect(() => {
     dispatch(getUserWithStoredToken());
@@ -113,6 +121,9 @@ export default function HomeScreen({ navigation }) {
                       margin: 20,
                     }}
                   >
+                    {commentMode ? (
+                      <CommentForm userEmotionId={emotion.id} />
+                    ) : null}
                     {/* &#128533; */}
                     &#129327;
                   </Text>
@@ -177,18 +188,18 @@ const styles = StyleSheet.create({
     marginTop: Constants.statusBarHeight,
   },
   scrollView: {
-    backgroundColor: "#bedbbb",
-    marginHorizontal: 5,
+    backgroundColor: "white",
+    marginHorizontal: 10,
   },
   text: {
     fontSize: 15,
     margin: 20,
   },
   feedElement: {
-    backgroundColor: "#bedbbc",
+    backgroundColor: "#e0ece4",
     marginHorizontal: 5,
     marginBottom: 5,
-    borderWidth: 5,
+    borderWidth: 2,
     borderColor: "#000000",
   },
 });

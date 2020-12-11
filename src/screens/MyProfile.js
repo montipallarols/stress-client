@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     marginTop: Constants.statusBarHeight,
   },
   scrollView: {
-    backgroundColor: '#bedbbb',
+    backgroundColor: '#f3f2da',
     marginHorizontal: 5,
   },
   text: {

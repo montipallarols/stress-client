@@ -6,7 +6,7 @@ import {
   StyleSheet,
   ScrollView,
   SafeAreaView,
-  Linking,
+  ImageBackground,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { emotionsFetched, fetchEmotions } from "../../store/emotions/actions";
@@ -65,61 +65,88 @@ export default function HomeScreen({ navigation }) {
   //   console.log(number);
   // }
 
+  const image = {
+    uri:
+      "https://image.freepik.com/free-photo/wooden-floor-sunny-day_1134-28.jpg",
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <View
-          style={{ alignItems: "center", justifyContent: "center", flex: 1 }}
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            flex: 1,
+            borderWidth: 2,
+            borderColor: "#000",
+            margin: 15,
+            overflow: "hidden",
+          }}
         >
-          <View style={styles.container}>
-            <Text
-              style={{
-                fontWeight: "bold",
-                fontSize: 40,
-                textAlign: "center",
-              }}
+          <ImageBackground source={image} style={{ resizeMode: "cover" }}>
+            <View style={styles.container}>
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  fontSize: 40,
+                  textAlign: "center",
+                  color: "#000",
+                }}
+              >
+                AntiStress
+              </Text>
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  fontSize: 30,
+                  textAlign: "center",
+                }}
+              >
+                How is everyone feeling today?
+              </Text>
+            </View>
+            <View
+              style={styles.container}
+              style={[
+                {
+                  width: "100%",
+                  flexDirection: "row",
+                  justifyContent: "space-evenly",
+                  margin: 15,
+                },
+              ]}
             >
-              AntiStress
-            </Text>
-            <Text
-              style={{
-                fontWeight: "bold",
-                fontSize: 30,
-                textAlign: "center",
-              }}
-            >
-              How is everyone feeling today?
-            </Text>
-          </View>
-          <View style={styles.container}>
-            {token ? (
-              <Button
-                title="My Profile"
-                onPress={() => navigation.navigate("My Profile")}
-              />
-            ) : (
-              <Button
-                title="Sign up"
-                onPress={() => navigation.navigate("SignUp")}
-              />
-            )}
+              {token ? (
+                <Button
+                  title="My Profile"
+                  onPress={() => navigation.navigate("My Profile")}
+                />
+              ) : (
+                <Button
+                  title="Sign up"
+                  onPress={() => navigation.navigate("SignUp")}
+                />
+              )}
 
-            {token ? (
-              <Button title="Logout" onPress={onPressLogout} />
-            ) : (
-              <Button
-                title="Login"
-                onPress={() => navigation.navigate("Login")}
-              />
-            )}
-            {token ? (
-              <Button
-                title="Feelings"
-                onPress={() => navigation.navigate("Feelings")}
-              />
-            ) : null}
-          </View>
+              {token ? (
+                <Button title="Logout" onPress={onPressLogout} />
+              ) : (
+                <Button
+                  title="Login"
+                  onPress={() => navigation.navigate("Login")}
+                />
+              )}
+              {token ? (
+                <Button
+                  title="Feelings"
+                  onPress={() => navigation.navigate("Feelings")}
+                />
+              ) : null}
+            </View>
+          </ImageBackground>
         </View>
+
         <ScrollView style={styles.scrollView}>
           {emotions?.map((emotion) => {
             return (

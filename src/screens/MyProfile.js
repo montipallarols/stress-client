@@ -41,7 +41,7 @@ export default function HomeScreen({navigation}) {
           // fontWeight: "bold",
           fontSize: 25,
           textAlign: "center",
-          margin: 30
+          margin: 20
         }}
       >
         Reflection diary
@@ -76,7 +76,7 @@ export default function HomeScreen({navigation}) {
           fontWeight: "bold",
           fontSize: 18,
           textAlign: "center",
-          margin: 30
+          margin: 20
         }}
           >How well I dealt with it:</Text>
           <Text style={styles.text}>{r.score}/10</Text>
@@ -84,9 +84,9 @@ export default function HomeScreen({navigation}) {
       </View>
        
       })}
+    <Button title="Add today's reflection" onPress={() => navigation.navigate("Reflection")} />
       </ScrollView>
 
-    <Button title="Add today's reflection" onPress={() => navigation.navigate("Reflection")} />
      
     </View>
     </SafeAreaView>
@@ -100,10 +100,10 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     backgroundColor: '#f3f2da',
-    marginHorizontal: 5,
+    marginHorizontal: 2,
   },
   text: {
     fontSize: 15,
-    margin: 20
+    marginHorizontal: 10
   },
 });

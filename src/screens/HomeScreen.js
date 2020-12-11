@@ -6,12 +6,14 @@ import {
   StyleSheet,
   ScrollView,
   SafeAreaView,
+  Linking,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { emotionsFetched, fetchEmotions } from "../store/emotions/actions";
 import { selectAllEmotions } from "../store/emotions/selectors";
 import { getUserWithStoredToken, logOut } from "../store/user/actions";
 import Constants from "expo-constants";
+import WhatsAppShare from "../components/Share";
 
 import { selectToken, selectUser } from "../store/user/selectors";
 
@@ -35,6 +37,14 @@ export default function HomeScreen({ navigation }) {
     dispatch(logOut());
   }
   console.log("emotions", emotions);
+
+  function sendWhatsApp() {
+    const number = emotions.map((emotion) => {
+      Linking.openURL(`whatsapp://send?text=hello&phone=${emotion.user.phone}`);
+    });
+
+    console.log(number);
+  }
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -149,6 +159,8 @@ export default function HomeScreen({ navigation }) {
                 >
                   {emotion.description}
                 </Text>
+                <Text>{emotion.user.phone}</Text>
+                <Button title="Send a message" onPress={sendWhatsApp} />
               </View>
             );
           })}

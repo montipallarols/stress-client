@@ -14,7 +14,7 @@ export default function CommentForm(props) {
   const [content, setContent] = useState("");
   const dispatch = useDispatch();
   const userEmotionId = props.userEmotionId;
-  const token = useSelector(selectToken)
+ 
 
   function submitComment() {
     console.log("Comment:", content);

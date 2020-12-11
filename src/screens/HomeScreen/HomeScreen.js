@@ -198,8 +198,9 @@ export default function HomeScreen({ navigation }) {
                   }}
                 >
                   {emotion.user.firstName} {emotion.user.lastName}
-                {emotion.description}
                 </Text>
+                  <Text style={styles.text}>
+                {emotion.description} </Text>
                 {/* <Text
                   style={{
                     fontWeight: "bold",

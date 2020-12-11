@@ -78,10 +78,12 @@ export default function HomeScreen({ navigation }) {
             alignItems: "center",
             justifyContent: "center",
             flex: 1,
-            borderWidth: 2,
+            borderWidth: 0,
             borderColor: "#000",
             margin: 15,
             overflow: "hidden",
+            borderRadius: 10,
+            
           }}
         >
           <ImageBackground source={image} style={{ resizeMode: "cover" }}>
@@ -91,16 +93,17 @@ export default function HomeScreen({ navigation }) {
                   fontWeight: "bold",
                   fontSize: 40,
                   textAlign: "center",
-                  color: "#000",
+                  color: "#000"
                 }}
               >
-                AntiStress
+                Help Mate
               </Text>
               <Text
                 style={{
                   fontWeight: "bold",
-                  fontSize: 30,
+                  fontSize: 22,
                   textAlign: "center",
+                  paddingTop: 20
                 }}
               >
                 How is everyone feeling today?
@@ -196,15 +199,16 @@ export default function HomeScreen({ navigation }) {
                 >
                   {emotion.user.firstName} {emotion.user.lastName}
                 </Text>
-                <Text
+                <Text style={styles.text}>
+                {emotion.description}</Text>
+                {/* <Text
                   style={{
                     fontWeight: "bold",
                     fontSize: 18,
                     textAlign: "center",
                     margin: 20,
                   }}
-                >
-                  {emotion.description}
+                > */}
                   <View style={styles.commentsContainer}>
                     {emotion.comments.map((comment) => {
                       return (
@@ -232,7 +236,7 @@ export default function HomeScreen({ navigation }) {
                   {commentMode ? (
                     <CommentForm userEmotionId={emotion.id} />
                   ) : null}
-                </Text>
+                {/* </Text> */}
                 {/* <Text>{emotion.user.phone}</Text>
                 <Button title="Send a message" onPress={sendWhatsApp} /> */}
               </View>
@@ -254,18 +258,19 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   text: {
-    fontSize: 15,
+    fontSize: 17,
     margin: 20,
   },
   feedElement: {
-    backgroundColor: "#e0ece4",
+    backgroundColor: "#f3f2da",
     marginHorizontal: 5,
     marginBottom: 5,
-    borderWidth: 2,
+    borderWidth: 0,
     borderColor: "#000000",
+    margin: 10
   },
   comment: {
-    backgroundColor: "#e0ece4",
+    backgroundColor: "#f3f2da",
     marginBottom: 2,
     marginHorizontal: 5,
     padding: 25,

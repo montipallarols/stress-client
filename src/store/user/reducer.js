@@ -54,7 +54,7 @@ export default (state = initialState, action) => {
     case "ALL_USERS_FETCHED": {
       return {
         ...state,
-        allUsers: [...state.allUsers, action.payload],
+        allUsers: action.payload,
       };
     }
 

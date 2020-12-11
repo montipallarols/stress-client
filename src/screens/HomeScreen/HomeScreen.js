@@ -19,7 +19,11 @@ import {
 import Constants from "expo-constants";
 import WhatsAppShare from "../../components/Share";
 
-import { selectToken, selectUser } from "../../store/user/selectors";
+import {
+  selectAllUsers,
+  selectToken,
+  selectUser,
+} from "../../store/user/selectors";
 import CommentForm from "./CommentForm";
 
 export default function HomeScreen({ navigation }) {
@@ -27,6 +31,7 @@ export default function HomeScreen({ navigation }) {
   const user = useSelector(selectUser);
   const token = user.token;
   const emotions = useSelector(selectAllEmotions);
+  const allUsers = useSelector(selectAllUsers);
 
   const [commentMode, setCommentMode] = useState(false);
   // const [chosenEmotionId, setChosenEmotionId] = useState(null);
@@ -50,7 +55,7 @@ export default function HomeScreen({ navigation }) {
     dispatch(logOut());
   }
   console.log("emotions", emotions);
-
+  console.log("HomeAllUsers", allUsers);
   // function sendWhatsApp() {
   //   const number = emotions.map((emotion) => {
   //     Linking.openURL(`whatsapp://send?text=hello&phone=${emotion.user.phone}`);
@@ -58,6 +63,7 @@ export default function HomeScreen({ navigation }) {
 
   //   console.log(number);
   // }
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -172,11 +178,16 @@ export default function HomeScreen({ navigation }) {
                 >
                   {emotion.description}
 
-                  {emotion.comments.map((e) => {
+                  {emotion.comments.map((comment) => {
                     return (
-                      <View key={e.id}>
-                        <Text>{e.content}</Text>
-                        <Text>{e.date.slice(0, 10)}</Text>
+                      <View key={comment.id}>
+                        {allUsers?.map((user) =>
+                          user.id === comment.userId ? (
+                            <Text key={user.id}>{user.firstName}</Text>
+                          ) : null
+                        )}
+                        <Text>{comment.content}</Text>
+                        <Text>{comment.date.slice(0, 10)}</Text>
                       </View>
                     );
                   })}

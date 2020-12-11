@@ -25,6 +25,7 @@ import {
   selectUser,
 } from "../../store/user/selectors";
 import CommentForm from "./CommentForm";
+import { FlatList } from "react-native-gesture-handler";
 
 export default function HomeScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -177,22 +178,30 @@ export default function HomeScreen({ navigation }) {
                   }}
                 >
                   {emotion.description}
+                  <View style={styles.commentsContainer}>
+                    {emotion.comments.map((comment) => {
+                      return (
+                        <View key={comment.id} style={styles.comment}>
+                          {allUsers?.map((user) =>
+                            user.id === comment.userId ? (
+                              <Text
+                                key={user.id}
+                                style={{ fontWeight: "bold" }}
+                              >
+                                {user.firstName}
+                              </Text>
+                            ) : null
+                          )}
+                          <Text>{comment.content}</Text>
+                          <Text style={{ fontStyle: "italic" }}>
+                            {comment.date.slice(0, 10)}
+                          </Text>
+                        </View>
+                      );
+                    })}
 
-                  {emotion.comments.map((comment) => {
-                    return (
-                      <View key={comment.id}>
-                        {allUsers?.map((user) =>
-                          user.id === comment.userId ? (
-                            <Text key={user.id}>{user.firstName}</Text>
-                          ) : null
-                        )}
-                        <Text>{comment.content}</Text>
-                        <Text>{comment.date.slice(0, 10)}</Text>
-                      </View>
-                    );
-                  })}
-
-                  <Button title="Comment" onPress={commentHandler} />
+                    <Button title="Comment" onPress={commentHandler} />
+                  </View>
                   {commentMode ? (
                     <CommentForm userEmotionId={emotion.id} />
                   ) : null}
@@ -227,5 +236,17 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     borderWidth: 2,
     borderColor: "#000000",
+  },
+  comment: {
+    backgroundColor: "#e0ece4",
+    marginBottom: 2,
+    marginHorizontal: 5,
+    padding: 25,
+    maxWidth: 250,
+  },
+  commentsContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
   },
 });

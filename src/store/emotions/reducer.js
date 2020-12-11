@@ -8,7 +8,6 @@ export default (state = initialState, action) => {
       return {
         all_emotions: action.payload,
       };
-
     default:
       return state;
   }

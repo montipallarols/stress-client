@@ -122,17 +122,20 @@ export const getUserWithStoredToken = () => {
 export const addUserEmotion = (level, description, needHelp, userId) => {
   return async (dispatch, getState) => {
     dispatch(appLoading());
-    
+
     const token = selectToken(getState());
-    
+
     if (token === null) return;
     try {
-      const response = await axios.post(`/user/${userId}`, {
-        level,
-        needHelp,
-        description
-      },
-      { headers: { Authorization: `Bearer ${token}` }});
+      const response = await axios.post(
+        `/user/${userId}`,
+        {
+          level,
+          needHelp,
+          description,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
 
       dispatch(userEmotionPostSuccess(response.data));
       dispatch(showMessage("success", true, "feeling created"));

@@ -13,7 +13,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { StyleSheet, Text, View } from "react-native";
-import HomeScreen from "./src/screens/HomeScreen";
+import HomeScreen from "./src/screens/HomeScreen/HomeScreen";
 import MyProfile from "./src/screens/MyProfile";
 import Login from "./src/screens/Login";
 import Signup from "./src/screens/Signup";
@@ -22,7 +22,6 @@ import Reflection from "./src/screens/Reflection";
 import Feelings from "./src/screens/Feelings";
 
 const Stack = createStackNavigator();
-
 
 export default function App() {
   return (
@@ -63,11 +62,10 @@ export default function App() {
             component={Reflection}
             options={{ title: "Reflection" }}
           />
-            <Stack.Screen 
+          <Stack.Screen
             name="Feelings"
             component={Feelings}
             options={{ title: "Feelings" }}
-
           />
         </Stack.Navigator>
       </NavigationContainer>

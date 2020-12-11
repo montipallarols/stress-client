@@ -168,16 +168,16 @@ export default function HomeScreen({ navigation }) {
                   }}
                 >
                   {emotion.user.firstName} {emotion.user.lastName}
+                {emotion.description}
                 </Text>
-                <Text
+                {/* <Text
                   style={{
                     fontWeight: "bold",
                     fontSize: 18,
                     textAlign: "center",
                     margin: 20,
                   }}
-                >
-                  {emotion.description}
+                > */}
                   <View style={styles.commentsContainer}>
                     {emotion.comments.map((comment) => {
                       return (
@@ -205,7 +205,7 @@ export default function HomeScreen({ navigation }) {
                   {commentMode ? (
                     <CommentForm userEmotionId={emotion.id} />
                   ) : null}
-                </Text>
+                {/* </Text> */}
                 {/* <Text>{emotion.user.phone}</Text>
                 <Button title="Send a message" onPress={sendWhatsApp} /> */}
               </View>

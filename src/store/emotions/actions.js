@@ -17,6 +17,13 @@ export function commentCreated(comment) {
   };
 }
 
+export const quotesFetched = (data) => {
+  return {
+    type: "QUOTES_FETCHED",
+    payload: data,
+  };
+};
+
 export const fetchEmotions = () => {
   return async (dispatch, getState) => {
     console.log("action got hit");

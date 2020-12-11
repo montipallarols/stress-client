@@ -17,11 +17,6 @@ import { selectToken, selectUser } from "../../store/user/selectors";
 import CommentForm from "./CommentForm";
 
 export default function HomeScreen({ navigation }) {
-  useEffect(() => {
-    console.log("FETCH GOT HIT");
-    dispatch(fetchEmotions());
-  }, []);
-
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const token = user.token;
@@ -33,6 +28,11 @@ export default function HomeScreen({ navigation }) {
   function commentHandler() {
     setCommentMode(!commentMode);
   }
+
+  useEffect(() => {
+    console.log("FETCH GOT HIT");
+    dispatch(fetchEmotions());
+  }, []);
 
   useEffect(() => {
     dispatch(getUserWithStoredToken());
@@ -188,18 +188,19 @@ const styles = StyleSheet.create({
     marginTop: Constants.statusBarHeight,
   },
   scrollView: {
-    backgroundColor: "#bedbbb",
-    marginHorizontal: 5,
+    backgroundColor: "white",
+    marginHorizontal: 10,
+ 
   },
   text: {
     fontSize: 15,
     margin: 20,
   },
   feedElement: {
-    backgroundColor: "#bedbbc",
+    backgroundColor: "#e0ece4",
     marginHorizontal: 5,
     marginBottom: 5,
-    borderWidth: 5,
+    borderWidth: 2,
     borderColor: "#000000",
   },
 });

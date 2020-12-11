@@ -11,7 +11,11 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { emotionsFetched, fetchEmotions } from "../../store/emotions/actions";
 import { selectAllEmotions } from "../../store/emotions/selectors";
-import { getUserWithStoredToken, logOut } from "../../store/user/actions";
+import {
+  fetchAllUsers,
+  getUserWithStoredToken,
+  logOut,
+} from "../../store/user/actions";
 import Constants from "expo-constants";
 import WhatsAppShare from "../../components/Share";
 
@@ -34,6 +38,7 @@ export default function HomeScreen({ navigation }) {
   useEffect(() => {
     console.log("FETCH GOT HIT");
     dispatch(fetchEmotions());
+    dispatch(fetchAllUsers());
   }, []);
 
   useEffect(() => {
@@ -121,7 +126,6 @@ export default function HomeScreen({ navigation }) {
                       margin: 20,
                     }}
                   >
-                    
                     {/* &#128533; */}
                     &#129327;
                   </Text>
@@ -168,22 +172,22 @@ export default function HomeScreen({ navigation }) {
                 >
                   {emotion.description}
 
-                  {emotion.comments.map(e => {
-                    return <View>
-                      <Text>{e.content}</Text>
-                      <Text>{e.date.slice(0, 10)}</Text>
-                    </View>
+                  {emotion.comments.map((e) => {
+                    return (
+                      <View key={e.id}>
+                        <Text>{e.content}</Text>
+                        <Text>{e.date.slice(0, 10)}</Text>
+                      </View>
+                    );
                   })}
-
 
                   <Button title="Comment" onPress={commentHandler} />
                   {commentMode ? (
-                      <CommentForm userEmotionId={emotion.id} />
-                    ) : null}
+                    <CommentForm userEmotionId={emotion.id} />
+                  ) : null}
                 </Text>
                 {/* <Text>{emotion.user.phone}</Text>
                 <Button title="Send a message" onPress={sendWhatsApp} /> */}
-               
               </View>
             );
           })}

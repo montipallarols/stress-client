@@ -47,6 +47,13 @@ export function reflectionCreated(reflection) {
   };
 }
 
+export function fetchedAllUsers(users) {
+  return {
+    type: "ALL_USERS_FETCHED",
+    payload: users,
+  };
+}
+
 export const logOut = () => ({ type: LOG_OUT });
 
 export const userEmotionPostSuccess = (userEmotion) => ({
@@ -153,6 +160,18 @@ export const addUserEmotion = (level, description, needHelp, userId) => {
     }
   };
 };
+
+export function fetchAllUsers() {
+  return async (dispatch, getState) => {
+    try {
+      const response = await axios.get(`/user/all`);
+      console.log("ALL USERS", response.data.allUsers);
+      dispatch(fetchedAllUsers(response.data.allUsers));
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+}
 
 export function getUserReflections(userId) {
   return async (dispatch, getState) => {

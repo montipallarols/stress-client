@@ -13,7 +13,8 @@ const initialState = {
   firstName: null,
   lastName: null,
   phone: null,
-  reflections: []
+  reflections: [],
+  allUsers: [],
 };
 
 export default (state = initialState, action) => {
@@ -39,14 +40,21 @@ export default (state = initialState, action) => {
       };
     case "REFLECTIONS_FETCHED": {
       return {
-          ...state,
-          reflections: [...action.payload]
-        };
+        ...state,
+        reflections: [...action.payload],
+      };
     }
     case "REFLECTION_CREATED": {
       return {
         ...state,
-        reflections: [...state.reflections, action.payload]
+        reflections: [...state.reflections, action.payload],
+      };
+    }
+
+    case "ALL_USERS_FETCHED": {
+      return {
+        ...state,
+        allUsers: action.payload,
       };
     }
 

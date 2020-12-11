@@ -13,7 +13,7 @@ import { emotionsFetched, fetchEmotions } from "../../store/emotions/actions";
 import { selectAllEmotions } from "../../store/emotions/selectors";
 import { getUserWithStoredToken, logOut } from "../../store/user/actions";
 import Constants from "expo-constants";
-import WhatsAppShare from "../components/Share";
+import WhatsAppShare from "../../components/Share";
 
 import { selectToken, selectUser } from "../../store/user/selectors";
 import CommentForm from "./CommentForm";

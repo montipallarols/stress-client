@@ -46,13 +46,13 @@ export default function HomeScreen({ navigation }) {
   }
   console.log("emotions", emotions);
 
-  function sendWhatsApp() {
-    const number = emotions.map((emotion) => {
-      Linking.openURL(`whatsapp://send?text=hello&phone=${emotion.user.phone}`);
-    });
+  // function sendWhatsApp() {
+  //   const number = emotions.map((emotion) => {
+  //     Linking.openURL(`whatsapp://send?text=hello&phone=${emotion.user.phone}`);
+  //   });
 
-    console.log(number);
-  }
+  //   console.log(number);
+  // }
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -121,9 +121,7 @@ export default function HomeScreen({ navigation }) {
                       margin: 20,
                     }}
                   >
-                    {commentMode ? (
-                      <CommentForm userEmotionId={emotion.id} />
-                    ) : null}
+                    
                     {/* &#128533; */}
                     &#129327;
                   </Text>
@@ -169,10 +167,23 @@ export default function HomeScreen({ navigation }) {
                   }}
                 >
                   {emotion.description}
+
+                  {emotion.comments.map(e => {
+                    return <View>
+                      <Text>{e.content}</Text>
+                      <Text>{e.date.slice(0, 10)}</Text>
+                    </View>
+                  })}
+
+
+                  <Button title="Comment" onPress={commentHandler} />
+                  {commentMode ? (
+                      <CommentForm userEmotionId={emotion.id} />
+                    ) : null}
                 </Text>
-                <Text>{emotion.user.phone}</Text>
-                <Button title="Send a message" onPress={sendWhatsApp} />
-                <WhatsAppShare />
+                {/* <Text>{emotion.user.phone}</Text>
+                <Button title="Send a message" onPress={sendWhatsApp} /> */}
+               
               </View>
             );
           })}

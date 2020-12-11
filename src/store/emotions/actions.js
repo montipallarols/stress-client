@@ -47,7 +47,7 @@ export function addComment(content, userEmotionId) {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       console.log("responseCOMMENT", response.data);
-      dispatch(commentCreated(response.data));
+      dispatch(emotionsFetched(response.data.userEmos));
     } catch (error) {
       console.log(error);
     }

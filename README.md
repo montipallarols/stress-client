@@ -4,7 +4,7 @@ A group project app built with React Native that aims to help the students at Co
 
 ### App demo 
 
-![stress1](https://user-images.githubusercontent.com/64054997/103531611-01591200-4e8a-11eb-99be-e120b37505c2.gif)
+![stress1](https://user-images.githubusercontent.com/64054997/103531611-01591200-4e8a-11eb-99be-e120b37505c2.gif =250x250)
 
 
 

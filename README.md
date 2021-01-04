@@ -4,6 +4,8 @@ A group project app built with React Native that aims to help the students at Co
 
 ### App demo 
 
+Home feed - Users can share how they're feeling each day and comment on each other's feelings. 
+
 
 <img src="https://user-images.githubusercontent.com/64054997/103531611-01591200-4e8a-11eb-99be-e120b37505c2.gif" height="300"/>
 
